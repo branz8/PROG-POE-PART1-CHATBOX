@@ -9,14 +9,14 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '10.0.x'
-        include-prerelease: true
+    - name: Setup .NET SDK
+      run: |
+        # Download and install .NET 10.0 SDK
+        curl -o dotnet-sdk.exe https://download.visualstudio.microsoft.com/download/pr/8f8c8c8c-8c8c-8c8c-8c8c-8c8c8c8c8c8c/8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c/dotnet-sdk-10.0.100-win-x64.exe
+        ./dotnet-sdk.exe /quiet /install
     
-    - name: Restore dependencies
-      run: dotnet restore --force
+    - name: Restore
+      run: dotnet restore
     
     - name: Build
-      run: dotnet build --configuration Release --verbosity minimal
+      run: dotnet build --configuration Release
